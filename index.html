@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Latency Data Visualization</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Latency Measurements Visualization</h1>
+
+            <div class="filters">
+                <div class="axis-selectors">
+                    <div class="filter-group">
+                        <label for="x-axis-select">X-Axis:</label>
+                        <select id="x-axis-select">
+                            <option value="packet_rate" selected>
+                                Packet Rate
+                            </option>
+                            <option value="packet_size">Packet Size</option>
+                            <option value="wait_cycles">Wait Cycles</option>
+                            <option value="working_set_size">
+                                Working Set Size
+                            </option>
+                        </select>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="x-log-scale" />
+                            <label for="x-log-scale">Log Scale</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="y-axis-select">Y-Axis:</label>
+                        <select id="y-axis-select">
+                            <option value="p25" selected>p25</option>
+                            <option value="p50">p50</option>
+                            <option value="p75">p75</option>
+                            <option value="p95">p95</option>
+                            <option value="p99">p99</option>
+                            <option value="p99_9">p99.9</option>
+                            <option value="p99_99">p99.99</option>
+                            <option value="p99_999">p99.999</option>
+                            <option value="p99_9999">p99.9999</option>
+                        </select>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="y-log-scale" />
+                            <label for="y-log-scale">Log Scale</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="cpu-select">CPU Model:</label>
+                    <select id="cpu-select">
+                        <option value="">All CPU Models</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="packet-size-select">Packet Size:</label>
+                    <select id="packet-size-select">
+                        <option value="">All Packet Sizes</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="wss-select">Working Set Size:</label>
+                    <select id="wss-select">
+                        <option value="">All Working Set Sizes</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="wait-cycles-select">Wait Cycles:</label>
+                    <select id="wait-cycles-select">
+                        <option value="">All Wait Cycles</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="scatter-chart"></canvas>
+            </div>
+
+            <div class="stats-panel">
+                <h3>Statistics</h3>
+                <div id="stats-content"></div>
+            </div>
+        </div>
+
+        <script src="app.js"></script>
+    </body>
+</html>
