@@ -82,6 +82,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     document
       .getElementById("y-log-scale")
       .addEventListener("change", updateChart);
+    document
+      .getElementById("max-latency-input")
+      .addEventListener("input", function () {
+        // Validate input is a number
+        const value = this.value;
+        if (value && isNaN(value)) {
+          document.getElementById("latency-filter-error").textContent =
+            "Please enter a valid number";
+        } else {
+          document.getElementById("latency-filter-error").textContent = "";
+        }
+      });
+
+    document
+      .getElementById("apply-latency-filter")
+      .addEventListener("click", updateChart);
 
     // Load initial chart
     updateChart();
@@ -132,6 +148,7 @@ function updateChart() {
   const packetSize = document.getElementById("packet-size-select").value;
   const workingSetSize = document.getElementById("wss-select").value;
   const waitCycles = document.getElementById("wait-cycles-select").value;
+  const maxLatency = document.getElementById("max-latency-input").value;
 
   // Filter data based on selections
   let filteredData = allData.filter((item) => {
@@ -146,6 +163,22 @@ function updateChart() {
       return false;
     if (waitCycles && xAxis !== "wait_cycles" && item.wait_cycles != waitCycles)
       return false;
+    if (maxLatency && !isNaN(maxLatency)) {
+      const maxLatencyNum = parseFloat(maxLatency);
+      if (
+        item.p25 > maxLatencyNum ||
+        item.p50 > maxLatencyNum ||
+        item.p75 > maxLatencyNum ||
+        item.p95 > maxLatencyNum ||
+        item.p99 > maxLatencyNum ||
+        item.p99_9 > maxLatencyNum ||
+        item.p99_99 > maxLatencyNum ||
+        item.p99_999 > maxLatencyNum ||
+        item.p99_9999 > maxLatencyNum
+      ) {
+        return false;
+      }
+    }
     return true;
   });
 

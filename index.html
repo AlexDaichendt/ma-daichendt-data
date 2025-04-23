@@ -78,6 +78,26 @@
                         <option value="">All Wait Cycles</option>
                     </select>
                 </div>
+
+                <div class="latency-filter">
+                    <label for="max-latency-input">Max Latency (μs):</label>
+                    <div class="latency-input-container">
+                        <input
+                            type="text"
+                            id="max-latency-input"
+                            placeholder="Enter max latency value"
+                        />
+                        <button id="apply-latency-filter">Apply</button>
+                    </div>
+                    <span
+                        id="latency-filter-error"
+                        class="error-message"
+                    ></span>
+                    <p class="filter-description">
+                        Only shows data points where all latency percentiles
+                        (p25 through p99.9999) are below this value.
+                    </p>
+                </div>
             </div>
 
             <div class="chart-container">
